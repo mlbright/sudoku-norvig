@@ -9,7 +9,6 @@ import "math/rand"
 type unit []string
 type unitgroup []unit
 type peerlist []string
-type puzzle_t map[string]string
 
 var rows string
 var cols string
@@ -266,12 +265,12 @@ func solve_all(grids []string, name string) {
 }
 
 func unit_solved(puzzle map[string]string, unit_ unit) bool {
-        set := make(map[string]int)
+        set := make(map[string]bool)
         for _, s := range unit_ {
-                set[puzzle[s]] = 1
+                set[puzzle[s]] = true
         }
         for _, d := range strings.Split(digits, "") {
-                if _, ok := set[d]; !ok {
+                if !set[d] {
                         return false
                 }
         }
@@ -308,9 +307,9 @@ func random_puzzle() string {
                                 ds = append(ds, puzzle[sq])
                         }
                 }
-                set := make(map[string]int)
+                set := make(map[string]bool)
                 for _, sq := range ds {
-                        set[sq] = 1
+                        set[sq] = true
                 }
                 if len(ds) >= puzzle_n && len(set) >= 8 {
                         out := make([]string, 0)
@@ -368,11 +367,11 @@ func main() {
         peers = make(map[string]peerlist)
 
         for _, s := range squares {
-                peer_set := make(map[string]int)
+                peer_set := make(map[string]bool)
                 for _, unit := range units[s] {
                         for _, square := range unit {
                                 if square != s {
-                                        peer_set[square] = 1
+                                        peer_set[square] = true
                                 }
                         }
                 }

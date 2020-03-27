@@ -122,7 +122,9 @@ func eliminate(puzzle map[string]string, s string, d string) bool {
 	// (1) If a square s is reduced to one value d2, then eliminate d2 from the peers.
 	if len(puzzle[s]) == 0 {
 		return false // Contradiction, removed last value
-	} else if len(puzzle[s]) == 1 {
+	}
+
+	if len(puzzle[s]) == 1 {
 		d2 := puzzle[s]
 		for _, s2 := range peers[s] {
 			if !eliminate(puzzle, s2, d2) {
@@ -130,6 +132,7 @@ func eliminate(puzzle map[string]string, s string, d string) bool {
 			}
 		}
 	}
+
 	// (2) If a unit u is reduced to only one place for a value d, then put it there.
 	for _, u := range units[s] {
 		dplaces := make([]string, 0)

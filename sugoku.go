@@ -89,8 +89,8 @@ func parse_grid(grid string) (map[string]string, bool) {
 func grid_values(grid string) map[string]string {
 	puzzle := make(map[string]string)
 	i := 0
+	valid := digits + "."
 	for _, c := range strings.Split(grid, "") {
-		valid := digits + "."
 		if strings.Contains(valid, c) {
 			puzzle[squares[i]] = c
 			i++
